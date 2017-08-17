@@ -3,6 +3,8 @@ use OlevilleVoting;
 CREATE TABLE Election (
 	id INTEGER NOT NULL AUTO_INCREMENT,
 	name VARCHAR(100),
+	startDateTime DATETIME,
+	endDateTime DATETIME,
 	PRIMARY KEY (id)
 );
 
