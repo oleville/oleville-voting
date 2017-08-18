@@ -1,10 +1,9 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
-import {dbUsername, dbPassword, dbHost} from './env.js'
 
 const index = require('./routes/index')
-const users = require('./routes/users')
+const elections = require('./routes/elections')
 
 const app = express()
 
@@ -13,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 app.use('/', index)
-app.use('/users', users)
+app.use('/elections', elections)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
