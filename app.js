@@ -1,7 +1,6 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
-import Sequelize from 'sequelize'
 import {dbUsername, dbPassword, dbHost} from './env.js'
 
 const index = require('./routes/index')
@@ -15,26 +14,6 @@ app.use(cookieParser())
 
 app.use('/', index)
 app.use('/users', users)
-
-// Make a database connection
-const sequelize = new Sequelize('OlevilleVoting', dbUsername, dbPassword, {
-	host: dbHost,
-	dialect: 'mysql',
-	pool: {
-		max: 5,
-		min: 0,
-		idle: 10000
-	}
-})
-// Test DB connection
-sequelize.authenticate()
-	.then(() => {
-		console.log('Connected to database')
-	})
-	.catch(err => {
-		console.error('Error connecting to database: ', err)
-	})
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
