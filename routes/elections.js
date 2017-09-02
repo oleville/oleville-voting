@@ -34,8 +34,19 @@ router.patch('/', (req, res) => {
 
 })
 
-router.delete('/', (req, res) => {
-
+router.delete('/:electionId', (req, res) => {
+	console.log('delete')
+	models.Election.destroy({
+		where: {
+			id: req.params.electionId
+		}
+	})
+	.then(() => {
+		res.sendStatus(202) // Accepted
+	})
+	.error(() => {
+		res.sendStatus(500)
+	})
 })
 
 
