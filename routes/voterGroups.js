@@ -4,10 +4,10 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/', (req, res) => {
-	models.User.findall({})
-	.then((user) => {
-		console.log(user)
-		res.send(user)
+	models.VoterGroup.findAll({})
+	.then((vg) => {
+		console.log(vg)
+		res.send(vg)
 	})
 })
 

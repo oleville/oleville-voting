@@ -4,14 +4,8 @@ import express from 'express'
 const router = express.Router()
 
 // return election information for the given id
-router.get('/:electionId', (req, res) => {
-	console.log('got request for elections')
-
-	models.Election.findAll({
-		where: {
-			id: req.params.electionId
-		}
-	})
+router.get('/', (req, res) => {
+	models.Election.findAll({})
 	.then((elections) => {
 		console.log(elections)
 		res.send(elections)
