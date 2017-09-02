@@ -3,8 +3,12 @@ import express from 'express'
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-	models.Position.findAll({})
+router.get('/:positionId?', (req, res) => {
+	models.Position.findAll({
+		where: {
+			id: (req.params.positionId == null) ? '*' : req.params.positionId
+		}
+	})
 	.then((position) => {
 		console.log(position)
 		res.send(position)

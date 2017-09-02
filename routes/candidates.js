@@ -3,8 +3,12 @@ import express from 'express'
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-	models.Candidate.findAll({})
+router.get('/:candidateId?', (req, res) => {
+	models.Candidate.findAll({
+		where: {
+			id: (req.params.candidateId == null) ? '*' : req.params.candidateId
+		}
+	})
 	.then((candidates) => {
 		console.log(candidates)
 		res.send(candidates)

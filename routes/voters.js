@@ -3,8 +3,12 @@ import express from 'express'
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-	models.Voter.findAll({})
+router.get('/:voterId?', (req, res) => {
+	models.Voter.findAll({
+		where: {
+			id: (req.params.voterId == null) ? '*' : req.params.voterId
+		}
+	})
 	.then((voter) => {
 		console.log(voter)
 		res.send(voter)

@@ -3,8 +3,12 @@ import express from 'express'
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-	models.User.findall({})
+router.get('/:userId?', (req, res) => {
+	models.User.findall({
+		where: {
+			id: (req.params.userId == null) ? '*' : req.params.userId
+		}
+	})
 	.then((user) => {
 		console.log(user)
 		res.send(user)
