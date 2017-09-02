@@ -18,7 +18,7 @@ router.get('/:voterGroupId', (req, res) => {
 router.post('/', (req, res) => {
 	models.VoterGroup.create({
 		name: req.body.name
-	}
+	})
 	.then(() => {
 		res.sendStatus(201) // Created
 	})
