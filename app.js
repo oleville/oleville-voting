@@ -2,8 +2,13 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
-const index = require('./routes/index')
 const elections = require('./routes/elections')
+const candidates = require('./routes/candidates')
+const positions = require('./routes/positions')
+const users = require('./routes/users')
+const voterGroups = require('./routes/voterGroups')
+const voters = require('./routes/voters')
+const votes = require('./routes/votes')
 
 const app = express()
 
@@ -11,8 +16,13 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-app.use('/', index)
 app.use('/elections', elections)
+app.use('/candidates', candidates)
+app.use('/positions', positions)
+app.use('/users', users)
+app.use('/voterGroups', voterGroups)
+app.use('/voters', voters)
+app.use('/votes', votes)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

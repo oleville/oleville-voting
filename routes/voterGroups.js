@@ -3,25 +3,22 @@ import express from 'express'
 
 const router = express.Router()
 
-// return election information for the given id
-router.get('/:electionId?', (req, res) => {
-	models.Election.findAll({
+router.get('/:voterGroupId', (req, res) => {
+	models.VoterGroup.findAll({
 		where: {
-			id: (req.params.electionId == null) ? '*' : req.params.electionId
+			id: (req.params.voterGroupId == null) ? '*' : req.params.voterGroupId
 		}
 	})
-	.then((elections) => {
-		console.log(elections)
-		res.send(elections)
+	.then((vg) => {
+		console.log(vg)
+		res.send(vg)
 	})
-
 })
 
 router.post('/', (req, res) => {
-	models.Election.create({
-		name: req.body.name,
-		description: req.body.description
-	})
+	models.VoterGroup.create({
+		name: req.body.name
+	}
 	.then(() => {
 		res.sendStatus(201) // Created
 	})
@@ -37,6 +34,5 @@ router.patch('/', (req, res) => {
 router.delete('/', (req, res) => {
 
 })
-
 
 module.exports = router
