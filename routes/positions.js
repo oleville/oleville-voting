@@ -33,8 +33,18 @@ router.patch('/', (req, res) => {
 
 })
 
-router.delete('/', (req, res) => {
-
+router.delete('/:positionId', (req, res) => {
+	models.destroy({
+		where: {
+			id: req.params.positionId
+		}
+	})
+	.then(() => {
+		res.sendStatus(202)
+	})
+	.error() => {
+		res.sendStatus(500)
+	})
 })
 
 module.exports = router
