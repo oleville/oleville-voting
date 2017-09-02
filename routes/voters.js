@@ -32,8 +32,18 @@ router.patch('/', (req, res) => {
 
 })
 
-router.delete('/', (req, res) => {
-
+router.delete('/:voterId', (req, res) => {
+	models.Voter.destroy({
+		where: {
+			id: req.params.voterId
+		}
+	})
+	.then(() => {
+		res.sendStatus(202)
+	})
+	.error(() => {
+		res.sendStatus(500)
+	})
 })
 
 module.exports = router

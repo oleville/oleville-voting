@@ -34,7 +34,7 @@ router.patch('/', (req, res) => {
 })
 
 router.delete('/:positionId', (req, res) => {
-	models.destroy({
+	models.Position.destroy({
 		where: {
 			id: req.params.positionId
 		}
@@ -42,7 +42,7 @@ router.delete('/:positionId', (req, res) => {
 	.then(() => {
 		res.sendStatus(202)
 	})
-	.error() => {
+	.error(() => {
 		res.sendStatus(500)
 	})
 })

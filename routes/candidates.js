@@ -43,7 +43,7 @@ router.delete('/:candidateId', (req, res) => {
 	.then(() => {
 		res.sendStatus(202)
 	})
-	.error() => {
+	.error(() => {
 		res.sendStatus(500)
 	})
 })
