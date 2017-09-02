@@ -16,7 +16,17 @@ router.get('/:positionId?', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-
+	models.Position.create({
+		name: req.body.name,
+		description: req.body.description,
+		electionId: req.body.electionId
+	})
+	.then(() => {
+		res.sendStatus(201) // Created
+	})
+	.error(() => {
+		res.sendStatus(500) // Internal server error
+	})
 })
 
 router.patch('/', (req, res) => {

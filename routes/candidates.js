@@ -16,7 +16,18 @@ router.get('/:candidateId?', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-
+	models.Candidate.create({
+		name: req.body.name,
+		description: req.body.description,
+		electionId: req.body.electionId,
+		positionId: req.body.positionId
+	})
+	.then(() => {
+		res.sendStatus(201) // Created
+	})
+	.error(() => {
+		res.sendStatus(500) // Internal server error
+	})
 })
 
 router.patch('/', (req, res) => {

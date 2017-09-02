@@ -16,6 +16,17 @@ router.get('/:userId?', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+	models.User.create({
+		name: req.body.name,
+		description: req.body.description,
+		electionId: req.body.electionId
+	})
+	.then(() => {
+		res.sendStatus(201) // Created
+	})
+	.error(() => {
+		res.sendStatus(500) // Internal server error
+	})
 
 })
 

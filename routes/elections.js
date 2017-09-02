@@ -18,7 +18,16 @@ router.get('/:electionId?', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-
+	models.Election.create({
+		name: req.body.name,
+		description: req.body.description
+	})
+	.then(() => {
+		res.sendStatus(201) // Created
+	})
+	.error(() => {
+		res.sendStatus(500) // Internal server error
+	})
 })
 
 router.patch('/', (req, res) => {
