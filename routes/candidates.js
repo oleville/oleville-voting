@@ -34,8 +34,18 @@ router.patch('/', (req, res) => {
 
 })
 
-router.delete('/', (req, res) => {
-
+router.delete('/:candidateId', (req, res) => {
+	models.destroy({
+		where: {
+			id: req.params.candidateId
+		}
+	})
+	.then(() => {
+		res.sendStatus(202)
+	})
+	.error() => {
+		res.sendStatus(500)
+	})
 })
 
 module.exports = router
