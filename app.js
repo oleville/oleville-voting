@@ -24,7 +24,7 @@ app.use('/users', users)
 app.use('/voterGroups', voterGroups)
 app.use('/voters', voters)
 app.use('/votes', votes)
-s
+
 // Singular routes
 app.use('/election', elections)
 app.use('/candidate', candidates)
