@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = (sequelize, DataTypes) => {
   const Candidate = sequelize.define('Candidate', {
@@ -13,5 +13,5 @@ module.exports = (sequelize, DataTypes) => {
 		Candidate.belongsTo(models.Position, { as: 'position' })
 	}
 
-  return Candidate;
-};
+  return Candidate
+}

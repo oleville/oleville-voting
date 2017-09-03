@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = (sequelize, DataTypes) => {
   const Election = sequelize.define('Election', {
@@ -9,5 +9,5 @@ module.exports = (sequelize, DataTypes) => {
 		freezeTableName: true
   })
 
-  return Election;
+  return Election
 }

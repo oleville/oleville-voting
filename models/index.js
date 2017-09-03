@@ -2,11 +2,11 @@ import Sequelize from 'sequelize'
 import path from 'path'
 import fs from 'fs'
 
-let env = process.env.NODE_ENV || 'development';
-let config = require(path.join(__dirname, '..', 'config', 'config.json'));
-config = config[env];
+let env = process.env.NODE_ENV || 'development'
+let config = require(path.join(__dirname, '..', 'config', 'config.json'))
+config = config[env]
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sequelize = new Sequelize(config.database, config.username, config.password, config)
 
 sequelize.authenticate().then(() => {
 	console.log('Connected to database')
