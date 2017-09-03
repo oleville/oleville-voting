@@ -28,8 +28,26 @@ router.post('/', (req, res) => {
 	})
 })
 
-router.patch('/', (req, res) => {
-
+router.patch('/:voterId', (req, res) => {
+	models.Voter.find({
+		where: {
+			id: req.params.voterId
+		}
+	})
+	.then((voter) => {
+		if (!voter) {
+			res.sendStatus(404)
+			return
+		}
+		voter.name = req.body.name || voter.name
+		voter.electionId = req.body.electionId || voter.electionId
+		voter.save().then(() => {
+			res.sendStatus(202)
+		})
+	})
+	.error(() => {
+		res.sendStatus(500)
+	})
 })
 
 router.delete('/:voterId', (req, res) => {

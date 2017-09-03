@@ -29,8 +29,27 @@ router.post('/', (req, res) => {
 	})
 })
 
-router.patch('/', (req, res) => {
-
+router.patch('/:positionId', (req, res) => {
+	models.Position.find({
+		where: {
+			id: req.params.positionId
+		}
+	})
+	.then((pos) => {
+		if (!pos) {
+			res.sendStatus(404)
+			return
+		}
+		pos.name = req.body.name || pos.name
+		pos.description = req.body.description || pos.description
+		pos.electionId = req.body.electionId || pos.electionId
+		pos.save().then(() => {
+			res.sendStatus(202)
+		})
+	})
+	.error(() => {
+		res.sendStatus(500)
+	})
 })
 
 router.delete('/:positionId', (req, res) => {
