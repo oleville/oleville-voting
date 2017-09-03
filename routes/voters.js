@@ -49,8 +49,8 @@ router.patch('/:voterId', (req, res) => {
 			res.sendStatus(404)
 			return
 		}
-		voter.name = req.body.name || voter.name
-		voter.electionId = req.body.electionId || voter.electionId
+		voter.name = req.query.name || voter.name
+		voter.electionId = req.query.electionId || voter.electionId
 		voter.save().then(() => {
 			res.sendStatus(202)
 		})

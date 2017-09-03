@@ -19,8 +19,8 @@ router.get('/:electionId?', (req, res) => {
 
 router.post('/', (req, res) => {
 	models.Election.create({
-		name: req.body.name,
-		description: req.body.description
+		name: req.query.name,
+		description: req.query.description
 	})
 	.then(() => {
 		res.sendStatus(201) // Created
@@ -41,9 +41,9 @@ router.patch('/:electionId', (req, res) => {
 			res.sendStatus(404)
 			return
 		}
-		election.name = req.body.name || election.name
-		election.startDateTime = req.body.startDateTime || election.startDateTime
-		election.endDateTime = req.body.endDateTime || election.endDateTime
+		election.name = req.query.name || election.name
+		election.startDateTime = req.query.startDateTime || election.startDateTime
+		election.endDateTime = req.query.endDateTime || election.endDateTime
 		election.save().then(() => {
 			res.sendStatus(202)
 		})

@@ -17,9 +17,9 @@ router.get('/:userId?', (req, res) => {
 
 router.post('/', (req, res) => {
 	models.User.create({
-		name: req.body.name,
-		description: req.body.description,
-		electionId: req.body.electionId
+		name: req.query.name,
+		description: req.query.description,
+		electionId: req.query.electionId
 	})
 	.then(() => {
 		res.sendStatus(201) // Created

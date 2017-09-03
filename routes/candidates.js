@@ -17,10 +17,10 @@ router.get('/:candidateId?', (req, res) => {
 
 router.post('/', (req, res) => {
 	models.Candidate.create({
-		name: req.body.name,
-		description: req.body.description,
-		electionId: req.body.electionId,
-		positionId: req.body.positionId
+		name: req.query.name,
+		description: req.query.description,
+		electionId: req.query.electionId,
+		positionId: req.query.positionId
 	})
 	.then(() => {
 		res.sendStatus(201) // Created
@@ -41,10 +41,10 @@ router.patch('/:candidateId', (req, res) => {
 			res.sendStatus(404)
 			return
 		}
-		candidate.name = req.body.name || candidate.name
-		candidate.description = req.body.description || candidate.description
-		candidate.electionId = req.body.electionId || candidate.electionId
-		candidate.positionId = req.body.positionId || candidate.positionId
+		candidate.name = req.query.name || candidate.name
+		candidate.description = req.query.description || candidate.description
+		candidate.electionId = req.query.electionId || candidate.electionId
+		candidate.positionId = req.query.positionId || candidate.positionId
 		candidate.save().then(() => {
 			res.sendStatus(202)
 		})
