@@ -22,7 +22,6 @@ fs.readdirSync(__dirname).filter(file => {
 }).forEach(file => {
 	let model = sequelize.import(path.join(__dirname, file))
 	db[model.name] = model
-	/* model.sync({force: false, alter: false})*/
 	modelNames.push(model.name)
 })
 
@@ -30,7 +29,6 @@ modelNames.forEach(modelName => {
 	if(db[modelName].associate) {
 		console.log(`Calling associations for model ${modelName}`)
 		db[modelName].associate(db)
-		/* db[modelName].sync({force: false, alter: false})*/
 	}
 })
 
