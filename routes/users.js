@@ -3,20 +3,20 @@ import express from 'express'
 
 const router = express.Router()
 
-router.get('/:voterId?', (req, res) => {
-	models.Voter.findAll({
+router.get('/:userId?', (req, res) => {
+	models.User.findAll({
 		where: {
-			id: (req.params.voterId == null) ? '*' : req.params.voterId
+			id: (req.params.userId == null) ? '*' : req.params.userId
 		}
 	})
-	.then((voter) => {
-		console.log(voter)
-		res.send(voter)
+	.then((user) => {
+		console.log(user)
+		res.send(user)
 	})
 })
 
 router.post('/', (req, res) => {
-	models.Voter.create({
+	models.User.create({
 		name: req.body.name,
 		electionId: req.body.electionId
 	})
@@ -28,20 +28,20 @@ router.post('/', (req, res) => {
 	})
 })
 
-router.patch('/:voterId', (req, res) => {
-	models.Voter.find({
+router.patch('/:userId', (req, res) => {
+	models.User.find({
 		where: {
-			id: req.params.voterId
+			id: req.params.userId
 		}
 	})
-	.then((voter) => {
-		if (!voter) {
+	.then((user) => {
+		if (!user) {
 			res.sendStatus(404)
 			return
 		}
-		voter.name = req.body.name || voter.name
-		voter.electionId = req.body.electionId || voter.electionId
-		voter.save().then(() => {
+		user.name = req.body.name || user.name
+		user.electionId = req.body.electionId || user.electionId
+		user.save().then(() => {
 			res.sendStatus(202)
 		})
 	})
@@ -50,10 +50,10 @@ router.patch('/:voterId', (req, res) => {
 	})
 })
 
-router.delete('/:voterId', (req, res) => {
-	models.Voter.destroy({
+router.delete('/:userId', (req, res) => {
+	models.User.destroy({
 		where: {
-			id: req.params.voterId
+			id: req.params.userId
 		}
 	})
 	.then(() => {
