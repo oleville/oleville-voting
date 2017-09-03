@@ -16,16 +16,26 @@ router.get('/:voterId?', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-	models.Voter.create({
-		name: req.body.name,
-		electionId: req.body.electionId
-	})
-	.then(() => {
-		res.sendStatus(201) // Created
-	})
-	.error(() => {
-		res.sendStatus(500) // Internal server error
-	})
+	if (Object.keys(req.query).length !== 0) {
+		models.Voter.create({
+			name: req.query.name,
+			electionId: req.query.electionId
+		})
+		.then(() => {
+			res.sendStatus(201) // Created
+		})
+		.error(() => {
+			res.sendStatus(500) // Internal server error
+		})
+	} else {
+		models.Voter.bulkCreate(req.body)
+		.then(() => {
+			res.sendStatus(201)
+		})
+		.error(() => {
+			res.sendStatus(500)
+		})
+	}
 })
 
 router.patch('/:voterId', (req, res) => {
