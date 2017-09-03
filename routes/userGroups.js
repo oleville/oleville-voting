@@ -3,10 +3,10 @@ import express from 'express'
 
 const router = express.Router()
 
-router.get('/:voterGroupId', (req, res) => {
-	models.VoterGroup.findAll({
+router.get('/:userGroupId', (req, res) => {
+	models.UserGroup.findAll({
 		where: {
-			id: (req.params.voterGroupId == null) ? '*' : req.params.voterGroupId
+			id: (req.params.userGroupId == null) ? '*' : req.params.userGroupId
 		}
 	})
 	.then((vg) => {
@@ -16,7 +16,7 @@ router.get('/:voterGroupId', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-	models.VoterGroup.create({
+	models.UserGroup.create({
 		name: req.body.name
 	})
 	.then(() => {
@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
 })
 
 router.patch('/:vgId', (req, res) => {
-	models.VoterGroup.find({
+	models.UserGroup.find({
 		where: {
 			id: req.params.vgId
 		}
@@ -49,7 +49,7 @@ router.patch('/:vgId', (req, res) => {
 })
 
 router.delete('/:vgId', (req, res) => {
-	models.VoterGroup.destroy({
+	models.UserGroup.destroy({
 		where: {
 			id: req.params.vgId
 		}
