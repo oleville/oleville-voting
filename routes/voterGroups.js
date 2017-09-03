@@ -27,12 +27,39 @@ router.post('/', (req, res) => {
 	})
 })
 
-router.patch('/', (req, res) => {
-
+router.patch('/:vgId', (req, res) => {
+	models.VoterGroup.find({
+		where: {
+			id: req.params.vgId
+		}
+	})
+	.then((vg) => {
+		if (!vg) {
+			res.sendStatus(404)
+			return
+		}
+		vg.name = req.body.name || vg.name
+		vg.save().then(() => {
+			res.sendStatus(202)
+		})
+	})
+	.error(() => {
+		res.sendStatus(500)
+	})
 })
 
-router.delete('/', (req, res) => {
-
+router.delete('/:vgId', (req, res) => {
+	models.VoterGroup.destroy({
+		where: {
+			id: req.params.vgId
+		}
+	})
+	.then(() => {
+		res.sendStatus(202)
+	})
+	.error(() => {
+		res.sendStatus(500)
+	})
 })
 
 module.exports = router

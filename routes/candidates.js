@@ -30,12 +30,42 @@ router.post('/', (req, res) => {
 	})
 })
 
-router.patch('/', (req, res) => {
-
+router.patch('/:candidateId', (req, res) => {
+	models.Candidate.find({
+		where: {
+			id: req.params.candidateId
+		}
+	})
+	.then((candidate) => {
+		if (!candidate) {
+			res.sendStatus(404)
+			return
+		}
+		candidate.name = req.body.name || candidate.name
+		candidate.description = req.body.description || candidate.description
+		candidate.electionId = req.body.electionId || candidate.electionId
+		candidate.positionId = req.body.positionId || candidate.positionId
+		candidate.save().then(() => {
+			res.sendStatus(202)
+		})
+	})
+	.error(() => {
+		res.sendStatus(500)
+	})
 })
 
-router.delete('/', (req, res) => {
-
+router.delete('/:candidateId', (req, res) => {
+	models.Candidate.destroy({
+		where: {
+			id: req.params.candidateId
+		}
+	})
+	.then(() => {
+		res.sendStatus(202)
+	})
+	.error(() => {
+		res.sendStatus(500)
+	})
 })
 
 module.exports = router

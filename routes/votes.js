@@ -28,11 +28,21 @@ router.post('/', (req, res) => {
 	})
 })
 
-router.patch('/', (req, res) => {
+// Intentionally omitted update, as votes should never be updated. Users
+// are not allowed to change their ballots after submission.
 
-})
-
-router.delete('/', (req, res) => {
+router.delete('/:voteId', (req, res) => {
+	models.Vote.destroy({
+		where: {
+			id: req.params.voteId
+		}
+	})
+	.then(() => {
+		res.sendStatus(202)
+	})
+	.error(() => {
+		res.sendStatus(500)
+	})
 
 })
 
