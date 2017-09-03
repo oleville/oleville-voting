@@ -1,15 +1,17 @@
 'use strict';
 
-module.exports = function(sequelize, DataTypes) {
-  var Candidate = sequelize.define('Candidate', {
+module.exports = (sequelize, DataTypes) => {
+  const Candidate = sequelize.define('Candidate', {
     name: DataTypes.STRING,
     description: DataTypes.TEXT
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
-  });
+		freezeTableName: true
+  })
+
+	Candidate.associate = (models) => {
+		Candidate.belongsTo(models.Election, { as: 'election' })
+		Candidate.belongsTo(models.Position, { as: 'position' })
+	}
+
   return Candidate;
 };

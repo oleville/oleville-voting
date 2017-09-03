@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "babel-node app.js"
+    "start": "babel-node app.js",
+    "db:create": "sudo mysql < script/create_databases.sql",
+    "setup": "sequelize db:migrate"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

@@ -1,4 +1,4 @@
-import models from '../lib/models'
+import models from '../models'
 import express from 'express'
 
 const router = express.Router()
