@@ -16,6 +16,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
+// Plural routes
 app.use('/elections', elections)
 app.use('/candidates', candidates)
 app.use('/positions', positions)
@@ -23,6 +24,16 @@ app.use('/users', users)
 app.use('/voterGroups', voterGroups)
 app.use('/voters', voters)
 app.use('/votes', votes)
+s
+// Singular routes
+app.use('/election', elections)
+app.use('/candidate', candidates)
+app.use('/position', positions)
+app.use('/user', users)
+app.use('/voterGroup', voterGroups)
+app.use('/voter', voters)
+app.use('/vote', votes)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

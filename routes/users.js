@@ -1,4 +1,4 @@
-import models from '../models'
+import models from '../lib/models'
 import express from 'express'
 
 const router = express.Router()
@@ -16,16 +16,26 @@ router.get('/:userId?', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-	models.User.create({
-		name: req.body.name,
-		electionId: req.body.electionId
-	})
-	.then(() => {
-		res.sendStatus(201) // Created
-	})
-	.error(() => {
-		res.sendStatus(500) // Internal server error
-	})
+	if (Object.keys(req.query).length !== 0) {
+		models.User.create({
+			name: req.query.name,
+			electionId: req.query.electionId
+		})
+		.then(() => {
+			res.sendStatus(201) // Created
+		})
+		.error(() => {
+			res.sendStatus(500) // Internal server error
+		})
+	} else {
+		models.User.bulkCreate(req.body)
+		.then(() => {
+			res.sendStatus(201)
+		})
+		.error(() => {
+			res.sendStatus(500)
+		})
+	}
 })
 
 router.patch('/:userId', (req, res) => {
@@ -39,8 +49,8 @@ router.patch('/:userId', (req, res) => {
 			res.sendStatus(404)
 			return
 		}
-		user.name = req.body.name || user.name
-		user.electionId = req.body.electionId || user.electionId
+		user.name = req.query.name || user.name
+		user.electionId = req.query.electionId || user.electionId
 		user.save().then(() => {
 			res.sendStatus(202)
 		})
