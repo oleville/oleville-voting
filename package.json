@@ -5,6 +5,8 @@
   "scripts": {
     "start": "babel-node app.js",
     "db:create": "sudo mysql < script/create_databases.sql",
+    "db:migrate:up": "sequelize db:migrate",
+    "db:migrate:down": "sequelize db:migrate:undo:all",
     "db:drop": "sudo mysql < script/drop_databases.sql",
     "setup": "sequelize db:migrate"
   },
