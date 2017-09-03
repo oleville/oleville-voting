@@ -3,22 +3,21 @@ import express from 'express'
 
 const router = express.Router()
 
-router.get('/:userId?', (req, res) => {
-	models.User.findall({
+router.get('/:voterId?', (req, res) => {
+	models.Voter.findAll({
 		where: {
-			id: (req.params.userId == null) ? '*' : req.params.userId
+			id: (req.params.voterId == null) ? '*' : req.params.voterId
 		}
 	})
-	.then((user) => {
-		console.log(user)
-		res.send(user)
+	.then((voter) => {
+		console.log(voter)
+		res.send(voter)
 	})
 })
 
 router.post('/', (req, res) => {
-	models.User.create({
+	models.Voter.create({
 		name: req.body.name,
-		description: req.body.description,
 		electionId: req.body.electionId
 	})
 	.then(() => {
@@ -27,15 +26,42 @@ router.post('/', (req, res) => {
 	.error(() => {
 		res.sendStatus(500) // Internal server error
 	})
-
 })
 
-router.patch('/', (req, res) => {
-
+router.patch('/:voterId', (req, res) => {
+	models.Voter.find({
+		where: {
+			id: req.params.voterId
+		}
+	})
+	.then((voter) => {
+		if (!voter) {
+			res.sendStatus(404)
+			return
+		}
+		voter.name = req.body.name || voter.name
+		voter.electionId = req.body.electionId || voter.electionId
+		voter.save().then(() => {
+			res.sendStatus(202)
+		})
+	})
+	.error(() => {
+		res.sendStatus(500)
+	})
 })
 
-router.delete('/', (req, res) => {
-
+router.delete('/:voterId', (req, res) => {
+	models.Voter.destroy({
+		where: {
+			id: req.params.voterId
+		}
+	})
+	.then(() => {
+		res.sendStatus(202)
+	})
+	.error(() => {
+		res.sendStatus(500)
+	})
 })
 
 module.exports = router
