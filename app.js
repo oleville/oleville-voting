@@ -24,7 +24,7 @@ app.use('/users', users)
 app.use('/voterGroups', voterGroups)
 app.use('/voters', voters)
 app.use('/votes', votes)
-s
+
 // Singular routes
 app.use('/election', elections)
 app.use('/candidate', candidates)
@@ -40,7 +40,7 @@ app.use(function(req, res, next) {
   var err = new Error('Not Found')
   err.status = 404
   next(err)
-});
+})
 
 // error handler
 app.use(function(err, req, res, next) {

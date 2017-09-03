@@ -1,4 +1,4 @@
-import models from '../lib/models'
+import models from '../models'
 import express from 'express'
 
 const router = express.Router()
@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
 		// there is not request body, assume that the data is in the query string
 		models.Vote.create({
 			candidateId: req.query.candidateId,
-			voterId: req.query.voterId,
+			userId: req.query.userId,
 			electionId: req.query.electionId,
 			positionId: req.query.positionId
 		})
