@@ -14,9 +14,9 @@ router.get('/:voteId?', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-	models.Voter.create({
+	models.User.create({
 		candidateId: req.body.candidateId,
-		voterId: req.body.voterId,
+		userId: req.body.userId,
 		electionId: req.body.electionId,
 		positionId: req.body.positionId
 	})
