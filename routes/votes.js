@@ -15,10 +15,10 @@ router.get('/:voteId?', (req, res) => {
 
 router.post('/', (req, res) => {
 	models.Voter.create({
-		candidateId: req.body.candidateId,
-		voterId: req.body.voterId,
-		electionId: req.body.electionId,
-		positionId: req.body.positionId
+		candidateId: req.query.candidateId,
+		voterId: req.query.voterId,
+		electionId: req.query.electionId,
+		positionId: req.query.positionId
 	})
 	.then(() => {
 		res.sendStatus(201) // Created

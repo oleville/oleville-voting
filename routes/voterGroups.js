@@ -17,7 +17,7 @@ router.get('/:voterGroupId', (req, res) => {
 
 router.post('/', (req, res) => {
 	models.VoterGroup.create({
-		name: req.body.name
+		name: req.query.name
 	})
 	.then(() => {
 		res.sendStatus(201) // Created
@@ -38,7 +38,7 @@ router.patch('/:vgId', (req, res) => {
 			res.sendStatus(404)
 			return
 		}
-		vg.name = req.body.name || vg.name
+		vg.name = req.query.name || vg.name
 		vg.save().then(() => {
 			res.sendStatus(202)
 		})

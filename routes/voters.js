@@ -17,8 +17,8 @@ router.get('/:voterId?', (req, res) => {
 
 router.post('/', (req, res) => {
 	models.Voter.create({
-		name: req.body.name,
-		electionId: req.body.electionId
+		name: req.query.name,
+		electionId: req.query.electionId
 	})
 	.then(() => {
 		res.sendStatus(201) // Created
@@ -39,8 +39,8 @@ router.patch('/:voterId', (req, res) => {
 			res.sendStatus(404)
 			return
 		}
-		voter.name = req.body.name || voter.name
-		voter.electionId = req.body.electionId || voter.electionId
+		voter.name = req.query.name || voter.name
+		voter.electionId = req.query.electionId || voter.electionId
 		voter.save().then(() => {
 			res.sendStatus(202)
 		})
