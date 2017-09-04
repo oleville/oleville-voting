@@ -17,6 +17,7 @@
     "express": "~4.15.2",
     "morgan": "~1.8.1",
     "mysql2": "^1.4.1",
+    "node-fetch": "^1.7.2",
     "query-string": "^5.0.0",
     "sequelize": "^4.8.0",
     "sequelize-cli": "^2.8.0"
