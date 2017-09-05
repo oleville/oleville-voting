@@ -37,27 +37,29 @@ app.use((req, res, next) => {
 })
 
 // election middleware
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
 	if (req.body.electionId) {
+		req.electionId = req.body.electionId
+		console.log('already has id in body')
 		next() // there is a electionId in the body already, we don't need to add one
+		return
 	}
 	if (req.query.electionId) {
-		req.body.electionId = req.query.electionId
+		req.electionId = req.query.electionId
+		console.log('already has id in query')
 		next()
+		return
 	}
 	if (req.params.electionId) {
-		req.body.electionId = req.params.electionId
+		req.electionId = req.params.electionId
+		console.log('already has id in params')
 		next()
+		return
 	}
-	refreshCurrentElectionInfo(currentElectionInfo)
-	.then((newInfo) => {
-		currentElectionInfo = newInfo
-		req.body.electionId = currentElectionInfo.id
-		next()
-	})
-	.error(() => {
-		console.log('error refreshing election info')
-	})
+	currentElectionInfo = await refreshCurrentElectionInfo(currentElectionInfo)
+	req.electionId = currentElectionInfo.id
+	next()
+	return
 })
 
 // Plural routes
