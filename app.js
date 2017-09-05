@@ -3,7 +3,8 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import { CLIENT_ID, CLIENT_SECRET, SESSION_SECRET } from './config.js'
 import models from './models'
-import getCurrentElectionId from './lib/getCurrentElectionId'
+import moment from 'moment'
+import refreshCurrentElectionInfo from './lib/refreshCurrentElectionInfo'
 
 const Strategy = require('passport-google-oauth').Strategy
 const elections = require('./routes/elections')
@@ -16,32 +17,47 @@ const login = require('./routes/login')
 
 const app = express()
 
+let currentElectionInfo = {
+	id: -1,
+	checked: moment(),
+	isStale: true
+}
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 // Add headers
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*')
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization')
 	res.setHeader('Access-Control-Allow-Credentials', true)
+	next()
+})
 
 // election middleware
 app.use((req, res, next) => {
 	if (req.body.electionId) {
-		return // there is a electionId in the body already, we don't need to add one
+		next() // there is a electionId in the body already, we don't need to add one
 	}
 	if (req.query.electionId) {
 		req.body.electionId = req.query.electionId
-		return
+		next()
 	}
 	if (req.params.electionId) {
 		req.body.electionId = req.params.electionId
-		return
+		next()
 	}
-	req.body.electionId = getCurrentElectionId()
-	next()
+	refreshCurrentElectionInfo(currentElectionInfo)
+	.then((newInfo) => {
+		currentElectionInfo = newInfo
+		req.body.electionId = currentElectionInfo.id
+		next()
+	})
+	.error(() => {
+		console.log('error refreshing election info')
+	})
 })
 
 // Plural routes
