@@ -17,9 +17,9 @@ router.post('/google', (req, res) => {
 		fetch('https://www.googleapis.com/oauth2/v3/tokeninfo?' + qs.stringify({
 			id_token: token
 		}))
-		.then((res) => {
-			if (res.ok) {
-				res.json()
+		.then((response) => {
+			if (response.ok) {
+				response.json()
 				.then((json) => {
 					let googleObj = json
 					// verify some stuff
@@ -43,12 +43,12 @@ router.post('/google', (req, res) => {
 					}
 				})
 				.error((err) => {
-					res.sendStatus(500)
 					console.log('Error parsing JSON')
+					res.sendStatus(500)
 				})
 			}
 		})
-		.error(() => {
+		.error((err) => {
 			console.log('error sending verification request to google')
 			res.sendStatus(500)
 		})
