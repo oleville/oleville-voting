@@ -2,21 +2,21 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "olevillevoting_development",
+    "database": "OlevilleVoting_development",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": null,
-    "database": "olevillevoting_test",
+    "database": "OlevilleVoting_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": null,
-    "database": "olevillevoting_production",
+    "database": "OlevilleVoting_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
