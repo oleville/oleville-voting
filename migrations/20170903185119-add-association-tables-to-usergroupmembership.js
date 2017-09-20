@@ -2,29 +2,33 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-		queryInterface.addColumn('UserGroupMembership', 'userId', Sequelize.INTEGER, {
-			allowNull: false,
-			references: {
-				model: 'User',
-				key: 'id'
+		queryInterface.addConstraint('UserGroupMembership', ['userId'], {
+			type: 'FOREIGN KEY',
+		  name: 'userGroupMembership_userId_FK',
+		  references: {
+				table: 'User',
+		    field: 'id'
 			},
-			onUpdate: 'CASCADE',
-			onDelete: 'SET NULL'
-		})
+		  onDelete: 'CASCADE',
+		  onUpdate: 'CASCADE'
+			}
+		)
 
-		queryInterface.addColumn('UserGroupMembership', 'userGroupId', Sequelize.INTEGER, {
-			allowNull: false,
-			references: {
-				model: 'UserGroup',
-				key: 'id'
+		queryInterface.addConstraint('UserGroupMembership', ['userGroupId'], {
+			type: 'FOREIGN KEY',
+		  name: 'userGroupMembership_userGroupId_FK',
+		  references: {
+				table: 'UserGroup',
+		    field: 'id'
 			},
-			onUpdate: 'CASCADE',
-			onDelete: 'SET NULL'
-		})
+		  onDelete: 'CASCADE',
+		  onUpdate: 'CASCADE'
+			}
+		)
   },
 
   down: (queryInterface, Sequelize) => {
-		queryInterface.removeColumn('UserGroupMembership', 'userId')
-		queryInterface.removeColumn('UserGroupMembership', 'userGroupId')
+		queryInterface.removeConstraint('UserGroupMembership', 'userGroup_userId_FK')
+		queryInterface.removeConstraint('UserGroupMembership', 'userGroup_userGroupId_FK')
   }
-};
+}

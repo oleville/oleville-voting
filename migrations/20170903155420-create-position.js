@@ -22,7 +22,11 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+			electionId: {
+				allowNull: false,
+				type: Sequelize.INTEGER
+			}
     })
   },
 

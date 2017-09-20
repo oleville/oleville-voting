@@ -2,18 +2,20 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-		queryInterface.addColumn('User', 'electionId', Sequelize.INTEGER, {
-			allowNull: false,
-			references: {
-				model: 'Election',
-				key: 'id'
+		queryInterface.addConstraint('User', ['electionId'], {
+			type: 'FOREIGN KEY',
+		  name: 'user_electionId_FK',
+		  references: {
+				table: 'Election',
+		    field: 'id'
 			},
-			onUpdate: 'CASCADE',
-			onDelete: 'SET NULL'
-		})
+		  onDelete: 'CASCADE',
+		  onUpdate: 'CASCADE'
+			}
+		)
   },
 
   down: (queryInterface, Sequelize) => {
-		queryInterface.removeColumn('User', 'electionId')
+		queryInterface.removeConstraint('User', 'user_electionId_FK')
   }
 }

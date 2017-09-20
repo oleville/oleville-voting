@@ -19,7 +19,23 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+			candidateid: {
+				allowNull: false,
+				type: Sequelize.INTEGER
+			},
+			userId: {
+				allowNull: false,
+				type: Sequelize.INTEGER
+			},
+			electionId: {
+				allowNull: false,
+				type: Sequelize.INTEGER
+			},
+			positionId: {
+				allowNull: false,
+				type: Sequelize.INTEGER
+			}
     })
   },
 
