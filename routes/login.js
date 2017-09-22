@@ -1,8 +1,9 @@
 import { CLIENT_ID } from '../config'
 import express from 'express'
+import moment from 'moment'
 import models from '../models'
 import qs from 'query-string'
-import verifySub from '../lib/verifySub'
+import userIsAuthenticated from '../lib/userIsAuthenticated'
 import fetch from 'node-fetch'
 
 const router = express.Router()
@@ -12,47 +13,40 @@ const getToken = (tokString) => {
 	return tok
 }
 
-router.post('/google', (req, res) => {
+router.post('/google', async (req, res) => {
 		let token = getToken(req.get('Authorization'))
-		fetch('https://www.googleapis.com/oauth2/v3/tokeninfo?' + qs.stringify({
+		let response = await fetch('https://www.googleapis.com/oauth2/v3/tokeninfo?' + qs.stringify({
 			id_token: token
 		}))
-		.then((response) => {
-			if (response.ok) {
-				response.json()
-				.then((json) => {
-					let googleObj = json
-					// verify some stuff
-					if (googleObj.aud !== CLIENT_ID) {
-						// This is not a token for our app. Error!
-						console.log('not a client id match')
-						res.sendStatus(403)
-						return
-					}
-					if (googleObj.hd !== 'stolaf.edu') {
-						// not an ole.
-						console.log('not a domain match')
-						res.sendStatus(403)
-						return
-					}
-					// Put the sub into the DB if it's not there, if it is, make sure it is the same
-					if (verifySub(googleObj.sub, googleObj.email)) {
-						res.sendStatus(200)
-					} else {
-						res.sendStatus(403)
-					}
-				})
-				.error((err) => {
-					console.log('Error parsing JSON')
-					res.sendStatus(500)
-				})
+		if (response.ok) {
+			let json = await response.json()
+
+			// verify some stuff
+			if (json.aud !== CLIENT_ID) {
+				// This is not a token for our app. Error!
+				console.log('not a client id match')
+				res.sendStatus(403)
+				return
 			}
-		})
-		.error((err) => {
-			console.log('error sending verification request to google')
-			res.sendStatus(500)
-		})
-	}
-)
+			if (json.hd !== 'stolaf.edu') {
+				// not an ole.
+				console.log('not a domain match')
+				res.sendStatus(403)
+				return
+			}
+
+			// put the token and expiration into the db
+			await models.User.update({
+					authToken: token, // this has just been verified with google, so we trust it
+					tokenExpiration: moment.unix(json.exp) // this comes from google, so we trust it
+				}, {
+					where: {
+						email: json.email
+					}
+				}
+			)
+		}
+		res.sendStatus(200)
+})
 
 module.exports = router
