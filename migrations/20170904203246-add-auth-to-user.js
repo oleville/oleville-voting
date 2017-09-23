@@ -2,10 +2,10 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.addColumn('User', 'googleId', Sequelize.BIGINT)
+    queryInterface.addColumn('User', 'authToken', Sequelize.STRING)
   },
 
   down: (queryInterface, Sequelize) => {
-    queryInterface.removeColumn('User', 'googleId')
+    queryInterface.removeColumn('User', 'authToken')
   }
 }
