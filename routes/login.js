@@ -4,17 +4,13 @@ import moment from 'moment'
 import models from '../models'
 import qs from 'query-string'
 import userIsAuthenticated from '../lib/userIsAuthenticated'
+import getToken from '../lib/getToken'
 import fetch from 'node-fetch'
 
 const router = express.Router()
 
-const getToken = (tokString) => {
-	let tok = tokString.match('\"(.+)\"')[1]
-	return tok
-}
-
 router.post('/google', async (req, res) => {
-		let token = getToken(req.get('Authorization'))
+		let token = getToken(req)
 		let response = await fetch('https://www.googleapis.com/oauth2/v3/tokeninfo?' + qs.stringify({
 			id_token: token
 		}))
