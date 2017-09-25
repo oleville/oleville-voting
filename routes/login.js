@@ -41,7 +41,8 @@ router.post('/google', async (req, res) => {
 					tokenExpiration: moment.unix(json.exp) // this comes from google, so we trust it
 				}, {
 					where: {
-						email: json.email
+						email: json.email,
+						electionId: req.electionId
 					}
 				}
 			)
