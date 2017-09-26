@@ -4,13 +4,17 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:voteId?', (req, res) => {
-	models.Vote.findall({
-		id: (req.params.voteId == null) ? '*' : req.params.voteId
-	})
-	.then((vote) => {
-		console.log(vote)
-		res.send(vote)
-	})
+	if (!userIsAdmin(req)) {
+		res.sendStatus(403)
+	} else {
+		models.Vote.findall({
+			id: (req.params.voteId == null) ? '*' : req.params.voteId
+		})
+		.then((vote) => {
+			console.log(vote)
+			res.send(vote)
+		})
+	}
 })
 
 router.post('/', (req, res) => {
@@ -44,18 +48,21 @@ router.post('/', (req, res) => {
 // are not allowed to change their ballots after submission.
 
 router.delete('/:voteId', (req, res) => {
-	models.Vote.destroy({
-		where: {
-			id: req.params.voteId
-		}
-	})
-	.then(() => {
-		res.sendStatus(202)
-	})
-	.error(() => {
-		res.sendStatus(500)
-	})
-
+	if (!userIsAdmin(req)) {
+		res.sendStatus(403)
+	} else {
+		models.Vote.destroy({
+			where: {
+				id: req.params.voteId
+			}
+		})
+		.then(() => {
+			res.sendStatus(202)
+		})
+		.error(() => {
+			res.sendStatus(500)
+		})
+	}
 })
 
 module.exports = router
