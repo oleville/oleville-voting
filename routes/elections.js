@@ -6,16 +6,23 @@ const router = express.Router()
 
 // return election information for the given id
 router.get('/:electionId?', (req, res) => {
-	models.Election.findAll({
-		where: {
-			id: (req.params.electionId == null) ? '*' : req.params.electionId
-		}
-	})
-	.then((elections) => {
-		console.log(elections)
-		res.send(elections)
-	})
-
+	if (req.params.electionId) {
+		models.Election.findAll({
+			where: {
+				id: req.params.electionId
+			}
+		})
+		.then((elections) => {
+			console.log(elections)
+			res.send(elections)
+		})
+	} else {
+		models.Election.findAll()
+		.then((elections) => {
+			console.log(elections)
+			res.send(elections)
+		})
+	}
 })
 
 router.post('/', (req, res) => {

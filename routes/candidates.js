@@ -5,15 +5,28 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/:candidateId?', (req, res) => {
-	models.Candidate.findAll({
-		where: {
-			id: (req.params.candidateId == null) ? '*' : req.params.candidateId
-		}
-	})
-	.then((candidates) => {
-		console.log(candidates)
-		res.send(candidates)
-	})
+	if (req.params.candidateId) {
+		models.Candidate.findAll({
+			where: {
+				id: req.params.candidateId,
+				electionId: req.electionId
+			}
+		})
+		.then((candidates) => {
+			console.log(candidates)
+			res.send(candidates)
+		})
+	} else {
+		models.Candidate.findAll({
+			where: {
+				electionId: req.electionId
+			}
+		})
+		.then((candidates) => {
+			console.log(candidates)
+			res.send(candidates)
+		})
+	}
 })
 
 router.post('/', (req, res) => {

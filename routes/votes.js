@@ -9,7 +9,11 @@ router.get('/:voteId?', (req, res) => {
 		res.sendStatus(403)
 	} else {
 		if (req.params.voteId == null) {
-			models.Vote.findAll()
+			models.Vote.findAll({
+				where: {
+					electionId: req.electionId
+				}
+			})
 			.then((vote) => {
 				console.log(vote)
 				res.send(vote)

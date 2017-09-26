@@ -14,15 +14,28 @@ router.use((req, res, next) => {
 })
 
 router.get('/:userGroupId', (req, res) => {
-	models.UserGroup.findAll({
-		where: {
-			id: (req.params.userGroupId == null) ? '*' : req.params.userGroupId
-		}
-	})
-	.then((vg) => {
-		console.log(vg)
-		res.send(vg)
-	})
+	if (req.params.userGroupId) {
+		models.UserGroup.findAll({
+			where: {
+				id: req.params.userGroupId,
+				electionId: req.electionId
+			}
+		})
+		.then((vg) => {
+			console.log(vg)
+			res.send(vg)
+		})
+	} else {
+		models.UserGroup.findAll({
+			where: {
+				electionId: req.electionId
+			}
+		})
+		.then((vg) => {
+			console.log(vg)
+			res.send(vg)
+		})
+	}
 })
 
 router.post('/', (req, res) => {
