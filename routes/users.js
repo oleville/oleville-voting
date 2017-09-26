@@ -1,9 +1,19 @@
 import models from '../models'
+import userIsAdmin from '../lib/userIsAdmin'
 import express from 'express'
 
 const router = express.Router()
 
+// all /user routes should be admin restricted
+router.use((req, res, next) => {
+	if (!userIsAdmin(req)) {
+		res.sendStatus(403)
+	}
+	next()
+})
+
 router.get('/:userId?', (req, res) => {
+	console.log('resolving in route')
 	models.User.findAll({
 		where: {
 			id: (req.params.userId == null) ? '*' : req.params.userId
