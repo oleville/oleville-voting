@@ -3,7 +3,6 @@ import express from 'express'
 import moment from 'moment'
 import models from '../models'
 import qs from 'query-string'
-import userIsAuthenticated from '../lib/userIsAuthenticated'
 import getToken from '../lib/getToken'
 import fetch from 'node-fetch'
 
