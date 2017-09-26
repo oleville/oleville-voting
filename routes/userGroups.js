@@ -3,6 +3,15 @@ import express from 'express'
 
 const router = express.Router()
 
+// all /userGroup routes should be admin restricted
+router.use((req, res, next) => {
+	if (!userIsAdmin(req)) {
+		res.sendStatus(403)
+	} else {
+		next()
+	}
+})
+
 router.get('/:userGroupId', (req, res) => {
 	models.UserGroup.findAll({
 		where: {
