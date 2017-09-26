@@ -1,4 +1,5 @@
 import models from '../models'
+import userIsAdmin from '../lib/userIsAdmin'
 import express from 'express'
 
 const router = express.Router()
