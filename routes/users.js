@@ -14,22 +14,35 @@ router.use((req, res, next) => {
 })
 
 router.get('/:userId?', (req, res) => {
-	models.User.findAll({
-		where: {
-			id: (req.params.userId == null) ? '*' : req.params.userId
-		}
+	if (req.params.userId) {
+		models.User.findAll({
+			where: {
+				id: req.params.userId,
+				electionId: req.electionId
+			}
+		})
+		.then((user) => {
+			console.log(user)
+			res.send(user)
+		})
+	} else {
+		models.User.findAll({
+			where: {
+				electionId: req.electionId
+			}
+		})
+		.then((user) => {
+			console.log(user)
+			res.send(user)
+		})
+	}
 	})
-	.then((user) => {
-		console.log(user)
-		res.send(user)
-	})
-})
 
 router.post('/', (req, res) => {
 	if (Object.keys(req.query).length !== 0) {
 		models.User.create({
 			name: req.query.name,
-			electionId: req.query.electionId
+			electionId: req.electionId
 		})
 		.then(() => {
 			res.sendStatus(201) // Created
