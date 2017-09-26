@@ -8,13 +8,23 @@ router.get('/:voteId?', (req, res) => {
 	if (!userIsAdmin(req)) {
 		res.sendStatus(403)
 	} else {
-		models.Vote.findall({
-			id: (req.params.voteId == null) ? '*' : req.params.voteId
-		})
-		.then((vote) => {
-			console.log(vote)
-			res.send(vote)
-		})
+		if (req.params.voteId == null) {
+			models.Vote.findAll()
+			.then((vote) => {
+				console.log(vote)
+				res.send(vote)
+			})
+		} else {
+			models.Vote.findAll({
+				where: {
+					id: req.params.voteId
+				}
+			})
+			.then((vote) => {
+				console.log(vote)
+				res.send(vote)
+			})
+		}
 	}
 })
 
