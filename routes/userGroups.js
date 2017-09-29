@@ -1,18 +1,41 @@
 import models from '../models'
+import userIsAdmin from '../lib/userIsAdmin'
 import express from 'express'
 
 const router = express.Router()
 
+// all /userGroup routes should be admin restricted
+router.use((req, res, next) => {
+	if (!userIsAdmin(req)) {
+		res.sendStatus(403)
+	} else {
+		next()
+	}
+})
+
 router.get('/:userGroupId', (req, res) => {
-	models.UserGroup.findAll({
-		where: {
-			id: (req.params.userGroupId == null) ? '*' : req.params.userGroupId
-		}
-	})
-	.then((vg) => {
-		console.log(vg)
-		res.send(vg)
-	})
+	if (req.params.userGroupId) {
+		models.UserGroup.findAll({
+			where: {
+				id: req.params.userGroupId,
+				electionId: req.electionId
+			}
+		})
+		.then((vg) => {
+			console.log(vg)
+			res.send(vg)
+		})
+	} else {
+		models.UserGroup.findAll({
+			where: {
+				electionId: req.electionId
+			}
+		})
+		.then((vg) => {
+			console.log(vg)
+			res.send(vg)
+		})
+	}
 })
 
 router.post('/', (req, res) => {

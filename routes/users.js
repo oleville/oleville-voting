@@ -1,25 +1,48 @@
 import models from '../models'
+import userIsAdmin from '../lib/userIsAdmin'
 import express from 'express'
 
 const router = express.Router()
 
-router.get('/:userId?', (req, res) => {
-	models.User.findAll({
-		where: {
-			id: (req.params.userId == null) ? '*' : req.params.userId
-		}
-	})
-	.then((user) => {
-		console.log(user)
-		res.send(user)
-	})
+// all /user routes should be admin restricted
+router.use((req, res, next) => {
+	if (!userIsAdmin(req)) {
+		res.sendStatus(403)
+	} else {
+		next()
+	}
 })
+
+router.get('/:userId?', (req, res) => {
+	if (req.params.userId) {
+		models.User.findAll({
+			where: {
+				id: req.params.userId,
+				electionId: req.electionId
+			}
+		})
+		.then((user) => {
+			console.log(user)
+			res.send(user)
+		})
+	} else {
+		models.User.findAll({
+			where: {
+				electionId: req.electionId
+			}
+		})
+		.then((user) => {
+			console.log(user)
+			res.send(user)
+		})
+	}
+	})
 
 router.post('/', (req, res) => {
 	if (Object.keys(req.query).length !== 0) {
 		models.User.create({
 			name: req.query.name,
-			electionId: req.query.electionId
+			electionId: req.electionId
 		})
 		.then(() => {
 			res.sendStatus(201) // Created

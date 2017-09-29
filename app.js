@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import { CLIENT_ID, CLIENT_SECRET, SESSION_SECRET } from './config.js'
 import models from './models'
 import moment from 'moment'
+import setUserInfo from './lib/setUserInfo'
 import refreshCurrentElectionInfo from './lib/refreshCurrentElectionInfo'
 
 const Strategy = require('passport-google-oauth').Strategy
@@ -60,6 +61,18 @@ app.use(async (req, res, next) => {
 	req.electionId = currentElectionInfo.id
 	next()
 	return
+})
+
+// authentication middleware
+app.use(async (req, res, next) => {
+	// if the user is trying to log in, then we don't care what their status is
+	if (req.originalUrl.includes('login')) {
+		next()
+	}
+
+	// if the user's authentication header is set, we can get their information and add it to the req object
+	req = await setUserInfo(req)
+	next()
 })
 
 // Plural routes
