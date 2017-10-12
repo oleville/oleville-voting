@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
   })
 
 	Vote.associate = (models) => {
-		Vote.belongsTo(models.Candidate, { as: 'candidate' })
-		Vote.belongsTo(models.User, { as: 'user' })
-		Vote.belongsTo(models.Election, { as: 'election' })
-		Vote.belongsTo(models.Position, { as: 'position' })
+		Vote.belongsTo(models.Candidate)
+		Vote.belongsTo(models.User)
+		Vote.belongsTo(models.Election)
+		Vote.belongsTo(models.Position)
 	}
 
   return Vote
