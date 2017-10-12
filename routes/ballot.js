@@ -6,7 +6,7 @@ const router = express.Router()
 router.get('/', async (req, res) => {
 	let candidates = await models.User.findAll({
 		where: {
-			authToken: 1
+			authToken: req.user.authToken
 		},
 		include: [
 			{
@@ -29,7 +29,14 @@ router.get('/', async (req, res) => {
 			}
 		]
 	})
-	res.send(candidates)
+
+	let returnJson = []
+	candidates[0].UserGroupMemberships.forEach((group) => {
+		group.UserGroup.Positions.forEach((position) => {
+			returnJson.push(position)
+		})
+	})
+	res.send(returnJson)
 })
 
 router.post('/', (req, res) => {
