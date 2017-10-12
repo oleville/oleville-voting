@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	Position.associate = (models) => {
 		Position.belongsTo(models.Election, { as: 'election' })
+		Position.belongsTo(models.UserGroup, { as: 'userGroup' })
 	}
 
   return Position

@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	UserGroup.associate = (models) => {
 		UserGroup.hasMany(models.UserGroupMembership, { as: 'userGroup' })
+		UserGroup.hasMany(models.Position, { as: 'userGroup' })
 	}
 
   return UserGroup
