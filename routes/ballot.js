@@ -11,7 +11,21 @@ router.get('/', async (req, res) => {
 		include: [
 			{
 				model: models.UserGroupMembership,
-				as: 'user'
+				include: [
+					{
+						model: models.UserGroup,
+						include: [
+							{
+								model: models.Position,
+								include: [
+									{
+										model: models.Candidate
+									}
+								]
+							}
+						]
+					}
+				]
 			}
 		]
 	})
