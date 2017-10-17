@@ -15,6 +15,7 @@ const users = require('./routes/users')
 const userGroups = require('./routes/userGroups')
 const votes = require('./routes/votes')
 const login = require('./routes/login')
+const ballot = require('./routes/ballot')
 
 const app = express()
 
@@ -82,6 +83,7 @@ app.use('/positions', positions)
 app.use('/users', users)
 app.use('/userGroups', userGroups)
 app.use('/votes', votes)
+app.use('/ballots', ballot)
 
 // Singular routes
 app.use('/election', elections)
@@ -90,6 +92,7 @@ app.use('/position', positions)
 app.use('/user', users)
 app.use('/userGroup', userGroups)
 app.use('/vote', votes)
+app.use('/ballot', ballot)
 
 app.use('/login', login)
 

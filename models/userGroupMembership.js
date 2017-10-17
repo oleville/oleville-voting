@@ -7,8 +7,8 @@ module.exports = function(sequelize, DataTypes) {
   })
 
 	UserGroupMembership.associate = (models) => {
-		UserGroupMembership.belongsTo(models.User, { as: 'user' })
-		UserGroupMembership.belongsTo(models.UserGroup, { as: 'userGroup' })
+		UserGroupMembership.belongsTo(models.User)
+		UserGroupMembership.belongsTo(models.UserGroup)
 	}
 
 

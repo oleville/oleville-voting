@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
   })
 
 	Candidate.associate = (models) => {
-		Candidate.belongsTo(models.Election, { as: 'election' })
-		Candidate.belongsTo(models.Position, { as: 'position' })
+		Candidate.belongsTo(models.Election)
+		Candidate.belongsTo(models.Position)
 	}
 
   return Candidate
