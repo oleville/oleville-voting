@@ -14,7 +14,7 @@ now(),
 date_add(now(), INTERVAL 1 DAY),
 now(),
 now(),
-TRUE);
+FALSE);
 
 INSERT INTO `OlevilleVoting_development`.`UserGroup`
 (

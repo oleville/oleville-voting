@@ -59,7 +59,9 @@ app.use(async (req, res, next) => {
 		return
 	}
 	currentElectionInfo = await refreshCurrentElectionInfo(currentElectionInfo)
+	console.log(currentElectionInfo)
 	req.electionId = currentElectionInfo.id
+	req.election = currentElectionInfo
 	next()
 	return
 })
