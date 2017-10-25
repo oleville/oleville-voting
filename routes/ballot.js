@@ -69,7 +69,7 @@ router.post('/', async (req, res) => {
 		let votePromises = [] // collect all the promises for inserting the data
 		ballot.forEach((vote) => {
 			votePromises.push(models.Vote.create({ // add a promise to the array for each of the votes
-				rank: (req.election.isRankChoice) ? vote.rank : null, // if the election is rank choice, the user needs to tell us the rank of this vote
+				rank: (req.election.isRankChoice) ? vote.rank : 1, // if the election is rank choice, the user needs to tell us the rank of this vote
 				UserId: req.user.id,
 				ElectionId: req.electionId,
 				PositionId: vote.positionId,
