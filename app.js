@@ -7,7 +7,6 @@ import moment from 'moment'
 import setUserInfo from './lib/setUserInfo'
 import refreshCurrentElectionInfo from './lib/refreshCurrentElectionInfo'
 
-const Strategy = require('passport-google-oauth').Strategy
 const elections = require('./routes/elections')
 const candidates = require('./routes/candidates')
 const positions = require('./routes/positions')
