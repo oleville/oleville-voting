@@ -23,7 +23,7 @@ router.post('/google', async (req, res) => {
 				res.sendStatus(403)
 				return
 			}
-			if (json.hd !== RESTRICED_DOMAIN) {
+			if (json.hd !== RESTRICTED_DOMAIN) {
 				// not an ole.
 				console.log('not a domain match')
 				res.sendStatus(403)
