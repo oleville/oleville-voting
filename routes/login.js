@@ -1,4 +1,4 @@
-import { CLIENT_ID } from '../config'
+import { CLIENT_ID, RESTRICTED_DOMAIN } from '../config'
 import express from 'express'
 import moment from 'moment'
 import models from '../models'
@@ -23,7 +23,7 @@ router.post('/google', async (req, res) => {
 				res.sendStatus(403)
 				return
 			}
-			if (json.hd !== 'stolaf.edu') {
+			if (json.hd !== RESTRICTED_DOMAIN) {
 				// not an ole.
 				console.log('not a domain match')
 				res.sendStatus(403)
