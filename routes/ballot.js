@@ -43,8 +43,8 @@ router.get('/', async (req, res) => {
 	})
 
 	let returnJson = []
-	candidates[0].UserGroupMemberships.forEach((group) => {
-		group.UserGroup.Positions.forEach((position) => {
+	candidates[0].UserGroupMemberships.forEach(group => {
+		group.UserGroup.Positions.forEach(position => {
 			returnJson.push(position)
 		})
 	})
@@ -67,18 +67,20 @@ router.post('/', async (req, res) => {
 	if (req.body) {
 		let ballot = req.body
 		let votePromises = [] // collect all the promises for inserting the data
-		ballot.forEach((vote) => {
-			votePromises.push(models.Vote.create({ // add a promise to the array for each of the votes
-				rank: (req.election.isRankChoice) ? vote.rank : 1, // if the election is rank choice, the user needs to tell us the rank of this vote
-				UserId: req.user.id,
-				ElectionId: req.electionId,
-				PositionId: vote.positionId,
-				CandidateId: vote.candidateId
-			})
-			.error(() => {
-				res.sendStatus(500)
-				return
-			}))
+		ballot.forEach(vote => {
+			votePromises.push(
+				models.Vote.create({
+					// add a promise to the array for each of the votes
+					rank: req.election.isRankChoice ? vote.rank : 1, // if the election is rank choice, the user needs to tell us the rank of this vote
+					UserId: req.user.id,
+					ElectionId: req.electionId,
+					PositionId: vote.positionId,
+					CandidateId: vote.candidateId
+				}).error(() => {
+					res.sendStatus(500)
+					return
+				})
+			)
 		})
 
 		await Promise.all(votePromises) // wait for all the votes to be inserted
