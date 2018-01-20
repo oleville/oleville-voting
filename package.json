@@ -11,13 +11,12 @@
     "setup": "sequelize db:migrate",
     "test": "jest",
     "prettier": "prettier --write '{lib,migrations,models,routes,script}/**/*.js' '*.js'",
-    "prettier:ci": "prettier --list-different '{lib,migrations,models,routes,script}/**/*.js' '*.js' || ( echo \"\nLooks like the above files aren't pretty.  Run prettier, pretty please.\\n\"; exit 1 )"
+    "prettier:ci": "prettier --list-different '{lib,migrations,models,routes,script}/**/*.js' '*.js' || ( echo \"\nLooks like the above files aren't pretty.\nRun prettier, pretty please.\\n\"; exit 1 )"
   },
   "prettier": {
     "useTabs": true,
     "singleQuote": true,
-    "trailingComma": "all",
-    "bracketSpacing": false,
+    "bracketSpacing": true,
     "semi": false
   },
   "dependencies": {
