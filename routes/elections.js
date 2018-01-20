@@ -11,14 +11,12 @@ router.get('/:electionId?', (req, res) => {
 			where: {
 				id: req.params.electionId
 			}
-		})
-		.then((elections) => {
+		}).then(elections => {
 			console.log(elections)
 			res.send(elections)
 		})
 	} else {
-		models.Election.findAll()
-		.then((elections) => {
+		models.Election.findAll().then(elections => {
 			console.log(elections)
 			res.send(elections)
 		})
@@ -33,12 +31,12 @@ router.post('/', (req, res) => {
 			name: req.query.name,
 			description: req.query.description
 		})
-		.then(() => {
-			res.sendStatus(201) // Created
-		})
-		.error(() => {
-			res.sendStatus(500) // Internal server error
-		})
+			.then(() => {
+				res.sendStatus(201) // Created
+			})
+			.error(() => {
+				res.sendStatus(500) // Internal server error
+			})
 	}
 })
 
@@ -51,21 +49,22 @@ router.patch('/:electionId', (req, res) => {
 				id: req.params.electionId
 			}
 		})
-		.then((election) => {
-			if (!election) {
-				res.sendStatus(404)
-				return
-			}
-			election.name = req.query.name || election.name
-			election.startDateTime = req.query.startDateTime || election.startDateTime
-			election.endDateTime = req.query.endDateTime || election.endDateTime
-			election.save().then(() => {
-				res.sendStatus(202)
+			.then(election => {
+				if (!election) {
+					res.sendStatus(404)
+					return
+				}
+				election.name = req.query.name || election.name
+				election.startDateTime =
+					req.query.startDateTime || election.startDateTime
+				election.endDateTime = req.query.endDateTime || election.endDateTime
+				election.save().then(() => {
+					res.sendStatus(202)
+				})
 			})
-		})
-		.error(() => {
-			res.sendStatus(500)
-		})
+			.error(() => {
+				res.sendStatus(500)
+			})
 	}
 })
 
@@ -78,14 +77,13 @@ router.delete('/:electionId', (req, res) => {
 				id: req.params.electionId
 			}
 		})
-		.then(() => {
-			res.sendStatus(202)
-		})
-		.error(() => {
-			res.sendStatus(500)
-		})
+			.then(() => {
+				res.sendStatus(202)
+			})
+			.error(() => {
+				res.sendStatus(500)
+			})
 	}
 })
-
 
 module.exports = router

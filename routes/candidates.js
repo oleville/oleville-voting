@@ -11,8 +11,7 @@ router.get('/:candidateId?', (req, res) => {
 				id: req.params.candidateId,
 				electionId: req.electionId
 			}
-		})
-		.then((candidates) => {
+		}).then(candidates => {
 			console.log(candidates)
 			res.send(candidates)
 		})
@@ -21,8 +20,7 @@ router.get('/:candidateId?', (req, res) => {
 			where: {
 				electionId: req.electionId
 			}
-		})
-		.then((candidates) => {
+		}).then(candidates => {
 			console.log(candidates)
 			res.send(candidates)
 		})
@@ -39,12 +37,12 @@ router.post('/', (req, res) => {
 			electionId: req.query.electionId,
 			positionId: req.query.positionId
 		})
-		.then(() => {
-			res.sendStatus(201) // Created
-		})
-		.error(() => {
-			res.sendStatus(500) // Internal server error
-		})
+			.then(() => {
+				res.sendStatus(201) // Created
+			})
+			.error(() => {
+				res.sendStatus(500) // Internal server error
+			})
 	}
 })
 
@@ -57,22 +55,22 @@ router.patch('/:candidateId', (req, res) => {
 				id: req.params.candidateId
 			}
 		})
-		.then((candidate) => {
-			if (!candidate) {
-				res.sendStatus(404)
-				return
-			}
-			candidate.name = req.query.name || candidate.name
-			candidate.description = req.query.description || candidate.description
-			candidate.electionId = req.query.electionId || candidate.electionId
-			candidate.positionId = req.query.positionId || candidate.positionId
-			candidate.save().then(() => {
-				res.sendStatus(202)
+			.then(candidate => {
+				if (!candidate) {
+					res.sendStatus(404)
+					return
+				}
+				candidate.name = req.query.name || candidate.name
+				candidate.description = req.query.description || candidate.description
+				candidate.electionId = req.query.electionId || candidate.electionId
+				candidate.positionId = req.query.positionId || candidate.positionId
+				candidate.save().then(() => {
+					res.sendStatus(202)
+				})
 			})
-		})
-		.error(() => {
-			res.sendStatus(500)
-		})
+			.error(() => {
+				res.sendStatus(500)
+			})
 	}
 })
 
@@ -85,12 +83,12 @@ router.delete('/:candidateId', (req, res) => {
 				id: req.params.candidateId
 			}
 		})
-		.then(() => {
-			res.sendStatus(202)
-		})
-		.error(() => {
-			res.sendStatus(500)
-		})
+			.then(() => {
+				res.sendStatus(202)
+			})
+			.error(() => {
+				res.sendStatus(500)
+			})
 	}
 })
 

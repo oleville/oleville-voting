@@ -1,21 +1,20 @@
 'use strict'
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+	up: (queryInterface, Sequelize) => {
 		queryInterface.addConstraint('User', ['electionId'], {
 			type: 'FOREIGN KEY',
-		  name: 'user_electionId_FK',
-		  references: {
+			name: 'user_electionId_FK',
+			references: {
 				table: 'Election',
-		    field: 'id'
+				field: 'id'
 			},
-		  onDelete: 'CASCADE',
-		  onUpdate: 'CASCADE'
-			}
-		)
-  },
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE'
+		})
+	},
 
-  down: (queryInterface, Sequelize) => {
+	down: (queryInterface, Sequelize) => {
 		queryInterface.removeConstraint('User', 'user_electionId_FK')
-  }
+	}
 }

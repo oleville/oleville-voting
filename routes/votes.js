@@ -13,8 +13,7 @@ router.get('/:voteId?', (req, res) => {
 				where: {
 					electionId: req.electionId
 				}
-			})
-			.then((vote) => {
+			}).then(vote => {
 				console.log(vote)
 				res.send(vote)
 			})
@@ -23,8 +22,7 @@ router.get('/:voteId?', (req, res) => {
 				where: {
 					id: req.params.voteId
 				}
-			})
-			.then((vote) => {
+			}).then(vote => {
 				console.log(vote)
 				res.send(vote)
 			})
@@ -41,21 +39,21 @@ router.post('/', (req, res) => {
 			electionId: req.query.electionId,
 			positionId: req.query.positionId
 		})
-		.then(() => {
-			res.sendStatus(201) // Created
-		})
-		.error(() => {
-			res.sendStatus(500) // Internal server error
-		})
+			.then(() => {
+				res.sendStatus(201) // Created
+			})
+			.error(() => {
+				res.sendStatus(500) // Internal server error
+			})
 	} else {
 		// there is a request body. Use it as the source of data.
 		models.Vote.bulkCreate(req.body)
-		.then(() => {
-			res.sendStatus(201)
-		})
-		.error(() => {
-			res.sendStatus(500)
-		})
+			.then(() => {
+				res.sendStatus(201)
+			})
+			.error(() => {
+				res.sendStatus(500)
+			})
 	}
 })
 
@@ -71,12 +69,12 @@ router.delete('/:voteId', (req, res) => {
 				id: req.params.voteId
 			}
 		})
-		.then(() => {
-			res.sendStatus(202)
-		})
-		.error(() => {
-			res.sendStatus(500)
-		})
+			.then(() => {
+				res.sendStatus(202)
+			})
+			.error(() => {
+				res.sendStatus(500)
+			})
 	}
 })
 

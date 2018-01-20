@@ -11,8 +11,7 @@ router.get('/:positionId?', (req, res) => {
 				id: req.params.positionId,
 				electionId: req.electionId
 			}
-		})
-		.then((position) => {
+		}).then(position => {
 			console.log(position)
 			res.send(position)
 		})
@@ -21,8 +20,7 @@ router.get('/:positionId?', (req, res) => {
 			where: {
 				electionId: req.electionId
 			}
-		})
-		.then((position) => {
+		}).then(position => {
 			console.log(position)
 			res.send(position)
 		})
@@ -38,12 +36,12 @@ router.post('/', (req, res) => {
 			description: req.query.description,
 			electionId: req.query.electionId
 		})
-		.then(() => {
-			res.sendStatus(201) // Created
-		})
-		.error(() => {
-			res.sendStatus(500) // Internal server error
-		})
+			.then(() => {
+				res.sendStatus(201) // Created
+			})
+			.error(() => {
+				res.sendStatus(500) // Internal server error
+			})
 	}
 })
 
@@ -56,21 +54,21 @@ router.patch('/:positionId', (req, res) => {
 				id: req.params.positionId
 			}
 		})
-		.then((pos) => {
-			if (!pos) {
-				res.sendStatus(404)
-				return
-			}
-			pos.name = req.query.name || pos.name
-			pos.description = req.query.description || pos.description
-			pos.electionId = req.query.electionId || pos.electionId
-			pos.save().then(() => {
-				res.sendStatus(202)
+			.then(pos => {
+				if (!pos) {
+					res.sendStatus(404)
+					return
+				}
+				pos.name = req.query.name || pos.name
+				pos.description = req.query.description || pos.description
+				pos.electionId = req.query.electionId || pos.electionId
+				pos.save().then(() => {
+					res.sendStatus(202)
+				})
 			})
-		})
-		.error(() => {
-			res.sendStatus(500)
-		})
+			.error(() => {
+				res.sendStatus(500)
+			})
 	}
 })
 
@@ -83,12 +81,12 @@ router.delete('/:positionId', (req, res) => {
 				id: req.params.positionId
 			}
 		})
-		.then(() => {
-			res.sendStatus(202)
-		})
-		.error(() => {
-			res.sendStatus(500)
-		})
+			.then(() => {
+				res.sendStatus(202)
+			})
+			.error(() => {
+				res.sendStatus(500)
+			})
 	}
 })
 

@@ -1,56 +1,56 @@
 'use strict'
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+	up: (queryInterface, Sequelize) => {
 		queryInterface.addConstraint('Vote', ['candidateId'], {
 			type: 'FOREIGN KEY',
-		  name: 'vote_candidateId_FK',
-		  references: {
+			name: 'vote_candidateId_FK',
+			references: {
 				table: 'Candidate',
-		    field: 'id'
+				field: 'id'
 			},
-		  onDelete: 'CASCADE',
-		  onUpdate: 'CASCADE'
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE'
 		})
 
 		queryInterface.addConstraint('Vote', ['userId'], {
 			type: 'FOREIGN KEY',
-		  name: 'vote_userId_FK',
-		  references: {
+			name: 'vote_userId_FK',
+			references: {
 				table: 'User',
-		    field: 'id'
+				field: 'id'
 			},
-		  onDelete: 'CASCADE',
-		  onUpdate: 'CASCADE'
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE'
 		})
 
 		queryInterface.addConstraint('Vote', ['electionId'], {
 			type: 'FOREIGN KEY',
-		  name: 'vote_electionId_FK',
-		  references: {
+			name: 'vote_electionId_FK',
+			references: {
 				table: 'Election',
-		    field: 'id'
+				field: 'id'
 			},
-		  onDelete: 'CASCADE',
-		  onUpdate: 'CASCADE'
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE'
 		})
 
 		queryInterface.addConstraint('Vote', ['positionId'], {
 			type: 'FOREIGN KEY',
-		  name: 'vote_positionId_FK',
-		  references: {
+			name: 'vote_positionId_FK',
+			references: {
 				table: 'Position',
-		    field: 'id'
+				field: 'id'
 			},
-		  onDelete: 'CASCADE',
-		  onUpdate: 'CASCADE'
+			onDelete: 'CASCADE',
+			onUpdate: 'CASCADE'
 		})
-  },
+	},
 
-  down: (queryInterface, Sequelize) => {
+	down: (queryInterface, Sequelize) => {
 		queryInterface.removeConstraint('Vote', 'vote_candidateId_FK')
 		queryInterface.removeConstraint('Vote', 'vote_userId_FK')
 		queryInterface.removeConstraint('Vote', 'vote_electionId_FK')
 		queryInterface.removeConstraint('Vote', 'vote_positionId_FK')
-  }
+	}
 }

@@ -20,8 +20,7 @@ router.get('/:userId?', (req, res) => {
 				id: req.params.userId,
 				electionId: req.electionId
 			}
-		})
-		.then((user) => {
+		}).then(user => {
 			console.log(user)
 			res.send(user)
 		})
@@ -30,13 +29,12 @@ router.get('/:userId?', (req, res) => {
 			where: {
 				electionId: req.electionId
 			}
-		})
-		.then((user) => {
+		}).then(user => {
 			console.log(user)
 			res.send(user)
 		})
 	}
-	})
+})
 
 router.post('/', (req, res) => {
 	if (Object.keys(req.query).length !== 0) {
@@ -44,20 +42,20 @@ router.post('/', (req, res) => {
 			name: req.query.name,
 			electionId: req.electionId
 		})
-		.then(() => {
-			res.sendStatus(201) // Created
-		})
-		.error(() => {
-			res.sendStatus(500) // Internal server error
-		})
+			.then(() => {
+				res.sendStatus(201) // Created
+			})
+			.error(() => {
+				res.sendStatus(500) // Internal server error
+			})
 	} else {
 		models.User.bulkCreate(req.body)
-		.then(() => {
-			res.sendStatus(201)
-		})
-		.error(() => {
-			res.sendStatus(500)
-		})
+			.then(() => {
+				res.sendStatus(201)
+			})
+			.error(() => {
+				res.sendStatus(500)
+			})
 	}
 })
 
@@ -67,20 +65,20 @@ router.patch('/:userId', (req, res) => {
 			id: req.params.userId
 		}
 	})
-	.then((user) => {
-		if (!user) {
-			res.sendStatus(404)
-			return
-		}
-		user.name = req.query.name || user.name
-		user.electionId = req.query.electionId || user.electionId
-		user.save().then(() => {
-			res.sendStatus(202)
+		.then(user => {
+			if (!user) {
+				res.sendStatus(404)
+				return
+			}
+			user.name = req.query.name || user.name
+			user.electionId = req.query.electionId || user.electionId
+			user.save().then(() => {
+				res.sendStatus(202)
+			})
 		})
-	})
-	.error(() => {
-		res.sendStatus(500)
-	})
+		.error(() => {
+			res.sendStatus(500)
+		})
 })
 
 router.delete('/:userId', (req, res) => {
@@ -89,12 +87,12 @@ router.delete('/:userId', (req, res) => {
 			id: req.params.userId
 		}
 	})
-	.then(() => {
-		res.sendStatus(202)
-	})
-	.error(() => {
-		res.sendStatus(500)
-	})
+		.then(() => {
+			res.sendStatus(202)
+		})
+		.error(() => {
+			res.sendStatus(500)
+		})
 })
 
 module.exports = router

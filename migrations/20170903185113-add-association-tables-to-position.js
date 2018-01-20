@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+	up: (queryInterface, Sequelize) => {
 		queryInterface.addConstraint('Position', ['electionId'], {
 			type: 'FOREIGN KEY',
 			name: 'position_electionId_FK',
@@ -12,9 +12,9 @@ module.exports = {
 			onDelete: 'CASCADE',
 			onUpdate: 'CASCADE'
 		})
-  },
+	},
 
-  down: (queryInterface, Sequelize) => {
+	down: (queryInterface, Sequelize) => {
 		queryInterface.removeConstraint('Position', 'position_electionId_FK')
-  }
+	}
 }

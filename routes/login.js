@@ -9,40 +9,45 @@ import fetch from 'node-fetch'
 const router = express.Router()
 
 router.post('/google', async (req, res) => {
-		let token = getToken(req)
-		let response = await fetch('https://www.googleapis.com/oauth2/v3/tokeninfo?' + qs.stringify({
-			id_token: token
-		}))
-		if (response.ok) {
-			let json = await response.json()
+	let token = getToken(req)
+	let response = await fetch(
+		'https://www.googleapis.com/oauth2/v3/tokeninfo?' +
+			qs.stringify({
+				id_token: token
+			})
+	)
+	if (response.ok) {
+		let json = await response.json()
 
-			// verify some stuff
-			if (json.aud !== CLIENT_ID) {
-				// This is not a token for our app. Error!
-				console.log('not a client id match')
-				res.sendStatus(403)
-				return
-			}
-			if (json.hd !== RESTRICTED_DOMAIN) {
-				// not an ole.
-				console.log('not a domain match')
-				res.sendStatus(403)
-				return
-			}
-
-			// put the token and expiration into the db
-			await models.User.update({
-					authToken: token, // this has just been verified with google, so we trust it
-					tokenExpiration: moment.unix(json.exp) // this comes from google, so we trust it
-				}, {
-					where: {
-						email: json.email,
-						electionId: req.electionId
-					}
-				}
-			)
+		// verify some stuff
+		if (json.aud !== CLIENT_ID) {
+			// This is not a token for our app. Error!
+			console.log('not a client id match')
+			res.sendStatus(403)
+			return
 		}
-		res.sendStatus(200)
+		if (json.hd !== RESTRICTED_DOMAIN) {
+			// not an ole.
+			console.log('not a domain match')
+			res.sendStatus(403)
+			return
+		}
+
+		// put the token and expiration into the db
+		await models.User.update(
+			{
+				authToken: token, // this has just been verified with google, so we trust it
+				tokenExpiration: moment.unix(json.exp) // this comes from google, so we trust it
+			},
+			{
+				where: {
+					email: json.email,
+					electionId: req.electionId
+				}
+			}
+		)
+	}
+	res.sendStatus(200)
 })
 
 module.exports = router
