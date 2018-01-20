@@ -9,7 +9,15 @@
     "db:migrate:down": "sequelize db:migrate:undo:all",
     "db:drop": "sudo mysql < script/drop_databases.sql",
     "setup": "sequelize db:migrate",
-    "test": "jest"
+    "test": "jest",
+    "prettier": "prettier --write '{lib,migrations,models,routes,script}/**/*.js' '*.js'"
+  },
+  "prettier": {
+    "useTabs": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": false,
+    "semi": false
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -29,6 +37,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "jest": "^21.2.1"
+    "jest": "^21.2.1",
+    "prettier": "^1.10.2"
   }
 }
