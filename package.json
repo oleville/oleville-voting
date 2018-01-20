@@ -10,7 +10,8 @@
     "db:drop": "sudo mysql < script/drop_databases.sql",
     "setup": "sequelize db:migrate",
     "test": "jest",
-    "prettier": "prettier --write '{lib,migrations,models,routes,script}/**/*.js' '*.js'"
+    "prettier": "prettier --write '{lib,migrations,models,routes,script}/**/*.js' '*.js'",
+    "prettier:ci": "prettier --list-different '{lib,migrations,models,routes,script}/**/*.js' '*.js' || ( echo \"\nLooks like the above files aren't pretty.  Run prettier, pretty please.\\n\"; exit 1 )"
   },
   "prettier": {
     "useTabs": true,

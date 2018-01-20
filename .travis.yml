@@ -10,6 +10,7 @@ cache:
 install:
   - npm install
 script:
-  - npm test
+  - npm run prettier:ci
+  - npm run test
 notifications:
   email: false
