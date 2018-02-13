@@ -1,0 +1,19 @@
+# Editor temporary files
+*.swp
+*~
+\#*\#
+
+# Ignore the git tree
+.git/
+
+# Ignore any and all log files
+*.log
+
+# Dependency directory
+/node_modules
+
+# Debug log from npm
+/npm-debug.log
+
+# Config files
+/config.js
