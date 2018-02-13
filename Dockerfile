@@ -1,5 +1,5 @@
 # We'll use Alpine, thanks!
-FROM node:alpine
+FROM node:9.5-alpine
 
 # Start by installing cipm, which is a pretty slow operation at first
 RUN npm i -g cipm
