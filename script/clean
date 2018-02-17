@@ -1,0 +1,7 @@
+#!/bin/sh
+
+ROOT_FOLDER=$(dirname $0)/..
+DB_DIR=$ROOT_FOLDER/db
+
+mkdir -p $DB_DIR
+rm -rfv $DB_DIR/*

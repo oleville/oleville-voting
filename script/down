@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ROOT_FOLDER=$(dirname $0)/..
+
+docker-compose -f $ROOT_FOLDER/docker-compose.yml down

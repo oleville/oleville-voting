@@ -1,0 +1,9 @@
+#!/bin/sh
+
+ROOT_FOLDER=$(dirname $0)/..
+
+export MYSQL_ROOT_PASSWORD=testytestytestytesty
+export NODE_ENV=production
+export MYSQL_DATABASE=OlevilleVoting_$NODE_ENV
+
+docker-compose -f $ROOT_FOLDER/docker-compose.yml up -d
