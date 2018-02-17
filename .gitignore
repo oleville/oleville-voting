@@ -17,6 +17,6 @@
 /config/config.json
 /env.js
 
-# Ignore db/ folder (except for .keep)
+# Ignore db/ folder
 /db/
 !/db/.keep
