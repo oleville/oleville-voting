@@ -20,4 +20,4 @@ RUN cipm
 # .dockerignore)
 ADD . /srv/vote
 
-ENTRYPOINT npm run start
+ENTRYPOINT bin/docker-entrypoint.sh
