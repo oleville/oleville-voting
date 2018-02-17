@@ -17,3 +17,5 @@
 
 # Config files
 /config.js
+/config/config.json
+/env.js
