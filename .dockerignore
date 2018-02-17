@@ -3,6 +3,9 @@
 *~
 \#*\#
 
+# Ignore the git tree
+.git/
+
 # Ignore any and all log files
 *.log
 
@@ -17,6 +20,5 @@
 /config/config.json
 /env.js
 
-# Ignore db/ folder
+# Ignore db/ folder (except for .keep)
 /db/
-!/db/.keep
