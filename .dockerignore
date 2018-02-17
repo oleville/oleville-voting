@@ -21,4 +21,4 @@
 /env.js
 
 # Ignore db/ folder (except for .keep)
-/db/ !.keep
+/db/
