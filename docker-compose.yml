@@ -7,17 +7,21 @@ services:
     networks:
       - voting
     environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD
-      - MYSQL_USER
-      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+    volumes:
+      - './db:/var/lib/mysql'
 
   api:
     image: oleville-voting:latest
+    depends_on: [ db ]
     restart: unless-stopped
     networks:
       - voting
     ports:
-      - 80
+      - 0.0.0.0:80:4000
+    environment:
+      - NODE_ENV
     volumes:
       - './config/config.json:/srv/vote/config/config.json'
       - './config.js:/srv/vote/config.js'
