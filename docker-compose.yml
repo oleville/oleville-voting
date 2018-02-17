@@ -1,0 +1,27 @@
+---
+version: '3'
+services:
+  db:
+    image: mysql:5.7.21
+    restart: unless-stopped
+    networks:
+      - voting
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+
+  api:
+    image: oleville-voting:latest
+    restart: unless-stopped
+    networks:
+      - voting
+    ports:
+      - 80
+    volumes:
+      - './config/config.json:/srv/vote/config/config.json'
+      - './config.js:/srv/vote/config.js'
+      - './env.js:/srv/vote/env.js'
+
+networks:
+  voting:
