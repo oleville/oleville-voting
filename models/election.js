@@ -14,5 +14,8 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	)
 
+	Election.associate = models => {
+	}
+
 	return Election
 }
