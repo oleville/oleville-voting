@@ -2,7 +2,7 @@
 version: '3'
 services:
   db:
-    image: mysql:5.7.21
+    image: docker.io/mysql:5.7.21
     restart: unless-stopped
     networks:
       - voting
@@ -13,7 +13,7 @@ services:
       - './db:/var/lib/mysql'
 
   api:
-    image: oleville-voting:latest
+    image: docker.io/oleville/voting:latest
     depends_on: [ db ]
     restart: unless-stopped
     networks:
