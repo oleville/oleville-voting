@@ -20,7 +20,7 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.DATE
 			},
-			candidateid: {
+			candidateId: {
 				allowNull: false,
 				type: Sequelize.INTEGER
 			},
