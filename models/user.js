@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 	User.associate = models => {
 		User.belongsTo(models.Election)
 		User.hasMany(models.UserGroupMembership)
+		User.hasMany(models.Vote)
 	}
 
 	return User
