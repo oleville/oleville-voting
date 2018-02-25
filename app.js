@@ -16,6 +16,7 @@ const votes = require('./routes/votes')
 const login = require('./routes/login')
 const ballot = require('./routes/ballot')
 const results = require('./routes/results')
+const dump = require('./routes/dump')
 const app = express()
 
 let currentElectionInfo = {
@@ -102,6 +103,7 @@ app.use('/user', users)
 app.use('/userGroup', userGroups)
 app.use('/vote', votes)
 app.use('/ballot', ballot)
+if(app.env !== 'production') app.use('/dump', dump)
 
 app.use('/login', login)
 
