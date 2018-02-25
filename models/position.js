@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 	Position.associate = models => {
 		Position.belongsTo(models.Election)
 		Position.belongsTo(models.UserGroup)
+		Position.hasMany(models.Vote)
 		Position.hasMany(models.Candidate)
 	}
 
