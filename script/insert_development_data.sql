@@ -183,6 +183,27 @@ now(),
 '1',
 date_add(now(), INTERVAL 1 DAY));
 
+INSERT INTO `OlevilleVoting_development`.`User`
+(
+`name`,
+`username`,
+`email`,
+`createdAt`,
+`updatedAt`,
+`electionId`,
+`authToken`,
+`tokenExpiration`)
+VALUES
+(
+'Kris',
+'rye2',
+'rye2@stolaf.edu',
+now(),
+now(),
+1,
+'1',
+date_add(now(), INTERVAL 1 DAY));
+
 INSERT INTO `OlevilleVoting_development`.`UserGroupMembership`
 (
 `createdAt`,
@@ -196,3 +217,15 @@ now(),
 1,
 1);
 
+INSERT INTO `OlevilleVoting_development`.`UserGroupMembership`
+(
+`createdAt`,
+`updatedAt`,
+`userId`,
+`userGroupId`)
+VALUES
+(
+now(),
+now(),
+2,
+1);
