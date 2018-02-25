@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			name: DataTypes.STRING,
 			username: DataTypes.STRING,
-			authToken: DataTypes.STRING,
+			authToken: DataTypes.STRING(2048),
 			email: DataTypes.STRING,
 			tokenExpiration: DataTypes.DATE
 		},
@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 	User.associate = models => {
 		User.belongsTo(models.Election)
 		User.hasMany(models.UserGroupMembership)
+		User.hasMany(models.Vote)
 	}
 
 	return User

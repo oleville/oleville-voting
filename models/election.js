@@ -14,5 +14,10 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	)
 
+	Election.associate = models => {
+		Election.hasMany(models.Vote)
+		Election.hasMany(models.Position)
+	}
+
 	return Election
 }
