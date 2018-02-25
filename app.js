@@ -15,7 +15,7 @@ const userGroups = require('./routes/userGroups')
 const votes = require('./routes/votes')
 const login = require('./routes/login')
 const ballot = require('./routes/ballot')
-
+const results = require('./routes/results')
 const app = express()
 
 let currentElectionInfo = {
@@ -35,6 +35,7 @@ app.use((req, res, next) => {
 		'Access-Control-Allow-Methods',
 		'GET, POST, OPTIONS, PUT, PATCH, DELETE'
 	)
+	res.setHeader('Content-Language', 'en-US')
 	res.setHeader(
 		'Access-Control-Allow-Headers',
 		'X-Requested-With,content-type,Authorization'
@@ -91,6 +92,7 @@ app.use('/users', users)
 app.use('/userGroups', userGroups)
 app.use('/votes', votes)
 app.use('/ballots', ballot)
+app.use('/results', results)
 
 // Singular routes
 app.use('/election', elections)
